@@ -8,7 +8,6 @@ export async function main(ns: NS) {
     await ns.hack(serverName);
     const r = Math.random() * 100
     if (r < 10) await ns.grow(serverName);
-    if (r < 20) await ns.weaken(serverName)
-
+    if (r < 40) await ns.weaken(serverName)
   }
 }

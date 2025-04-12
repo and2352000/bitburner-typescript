@@ -8,19 +8,28 @@ interface ScanOptions {
 export async function scan(ns: NS, options: ScanOptions = {}) {
   const lessEqThanHackingLevel = options?.lessEqThanHackingLevel ?? 1;
   const includeAdminRights = options?.includeAdminRights ?? false;
-  const servers = ns.scan(ns.getHostname());
+  const hostnames = await ns.scan(ns.getHostname());
   const reports = [];
-  for (const server of servers) {
-    const report = ns.getServer(server);
-    reports.push(report);
+  for (const hostname of hostnames) {
+    const hasRootAccess = ns.hasRootAccess(hostname)
+    const requiredHackingSkill = await ns.getServerRequiredHackingLevel(hostname)
+    const moneyAvailable = await ns.getServerMoneyAvailable(hostname)
+    const numOpenPortsRequired = await ns.getServerNumPortsRequired(hostname)
+    reports.push({
+      hostname,
+      hasRootAccess,
+      requiredHackingSkill,
+      moneyAvailable,
+      numOpenPortsRequired,
+    })
   }
   return reports
-    .filter(r => includeAdminRights ? r.hasAdminRights : true)
+    .filter(r => includeAdminRights ? r.hasRootAccess : true)
     .filter(r => r.requiredHackingSkill && r.requiredHackingSkill <= lessEqThanHackingLevel)
-    .sort((a, b) => (b.moneyAvailable ?? 0) - (a.moneyAvailable ?? 0));
-}
+      .sort((a, b) => (b.moneyAvailable ?? 0) - (a.moneyAvailable ?? 0));
+  }
 
-export async function main(ns: NS) {
-  const servers = await scan(ns);
-  ns.tprint(servers);
-}
+  export async function main(ns: NS) {
+    const servers = await scan(ns);
+    ns.tprint(servers);
+  }
