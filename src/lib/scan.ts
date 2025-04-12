@@ -2,11 +2,11 @@ import { NS } from "@ns";
 
 interface ScanOptions {
   includeAdminRights?: boolean;
-  lessEqThanHackingLevel?: number;
+  lessEqThanHackingLevel: number;
 }
 
-export async function scan(ns: NS, options: ScanOptions = {}) {
-  const lessEqThanHackingLevel = options?.lessEqThanHackingLevel ?? 1;
+export async function scan(ns: NS, options: ScanOptions) {
+  const lessEqThanHackingLevel = options?.lessEqThanHackingLevel;
   const includeAdminRights = options?.includeAdminRights ?? false;
   const hostnames = await ns.scan(ns.getHostname());
   const reports = [];
@@ -23,13 +23,16 @@ export async function scan(ns: NS, options: ScanOptions = {}) {
       numOpenPortsRequired,
     })
   }
+
   return reports
     .filter(r => includeAdminRights ? r.hasRootAccess : true)
     .filter(r => r.requiredHackingSkill && r.requiredHackingSkill <= lessEqThanHackingLevel)
-      .sort((a, b) => (b.moneyAvailable ?? 0) - (a.moneyAvailable ?? 0));
-  }
+    .sort((a, b) => (b.moneyAvailable ?? 0) - (a.moneyAvailable ?? 0));
+}
 
-  export async function main(ns: NS) {
-    const servers = await scan(ns);
-    ns.tprint(servers);
-  }
+export async function main(ns: NS) {
+  const servers = await scan(ns, {
+    lessEqThanHackingLevel: ns.getHackingLevel()
+  });
+  ns.tprint(servers);
+}

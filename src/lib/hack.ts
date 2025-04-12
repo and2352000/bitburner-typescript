@@ -9,5 +9,6 @@ export async function main(ns: NS) {
     const r = Math.random() * 100
     if (r < 10) await ns.grow(serverName);
     if (r < 40) await ns.weaken(serverName)
+    await ns.sleep(1000)
   }
 }
