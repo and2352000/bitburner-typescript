@@ -7,10 +7,8 @@ export async function syncRun(ns: NS, script: string, hostname: string) {
     while (true) {
         const allPs = ns.ps()
         const ps = allPs.find(p => p.pid === pid)
-        if (!ps) {
-            ns.tprintf(`script ${script} has finished`)
-            break
-        }
-        await ns.sleep(500)
+        if (!ps)  break
+        
+        await ns.sleep(50)
     }
 }

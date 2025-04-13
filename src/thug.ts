@@ -15,13 +15,10 @@ export async function main(ns: NS) {
         const maxRam = ns.getServerMaxRam(localHostname)
         const usedRam = ns.getServerUsedRam(localHostname)
         const freeRam = maxRam - usedRam
-
-        if (freeRam >= hackScriptRam) {
-            await ns.run('/lib/hack.js', { threads: 1 }, hostname);
-            i++
-        } else {
-            break;
-        }
-        await ns.sleep(1000)
+        const RESERVED_RAM = 6
+        if (freeRam - RESERVED_RAM < hackScriptRam) break;
+        await ns.run('/lib/hack.js', { threads: 1 }, hostname);
+        i++
+        await ns.sleep(500)
     }
 }

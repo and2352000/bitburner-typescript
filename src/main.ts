@@ -1,11 +1,11 @@
 import { NS } from "@ns";
-import { syncRun } from "./lib/syncRun";
+import { asyncRun } from "./lib/asyncRun";
 /** @param {NS} ns */
 export async function main(ns: NS) {
     const hostname = ns.getHostname()
     ns.killall()
-    ns.tprintf(`Starting rooter on ${hostname}`)
-    await syncRun(ns, '/rooter.js', hostname)
+    ns.tprintf(`Scheduler is active on ${hostname}`)
+    await asyncRun(ns, '/scheduler.js', hostname)
     ns.tprintf(`Daddy is active on ${hostname}`)
-    await ns.run('/daddy.js', { threads: 1 }, hostname)
+    await asyncRun(ns, '/daddy.js', hostname)
 }
