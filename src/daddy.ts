@@ -1,5 +1,6 @@
 import { NS } from "@ns";
 import { scan } from "./lib/scan";
+import { asyncRun } from "./lib/asyncRun";
 /** @param {NS} ns */
 
 const excludeServers = ['home', 'home2']
@@ -14,5 +15,5 @@ export async function main(ns: NS) {
     ns.tprintf('No available hack servers')
     return
   }
-  ns.run('/thug.js', { threads: 1 }, availableHackServers.map(server => server.hostname).join(','));
+  await asyncRun(ns, '/thug.js', availableHackServers.map(server => server.hostname).join(','));
 }

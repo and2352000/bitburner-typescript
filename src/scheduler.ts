@@ -7,8 +7,9 @@ interface MonitorStore {
         hackLevel: number
     }
 }
-const  monitorStore = { basic: { money: 0, hackLevel: 0 } } as MonitorStore
+const monitorStore = { basic: { money: 0, hackLevel: 0 } } as MonitorStore
 /** @param {NS} ns */
+let counter = 0
 export async function main(ns: NS) {
     const hostname = ns.getHostname()
 
@@ -22,8 +23,10 @@ export async function main(ns: NS) {
 
         await ns.write('./monitor.json', JSON.stringify(monitorStore), 'w')
 
-        if(hostname === 'home') await syncRun(ns, 'hacknet.js', 'home')
-        await syncRun(ns, 'rooter.js', hostname)
+        if (hostname === 'home' && counter % 10 === 0) await syncRun(ns, 'hacknet.js', 'home')
+        if (counter % 80 === 0) await syncRun(ns, 'rooter.js', hostname)
+        if (counter % 600 === 0) await syncRun(ns, 'daddy.js', hostname)
         await ns.sleep(1000)
+        counter++
     }
 }

@@ -1,4 +1,5 @@
 import { NS } from "@ns";
+import { asyncRun } from "./lib/asyncRun";
 /** @param {NS} ns */
 export async function main(ns: NS) {
     const arg0 = (ns.args[0] as string)
@@ -9,6 +10,8 @@ export async function main(ns: NS) {
     let i = 0
     const hostNumber = serverHostnames.length
     const localHostname = ns.getHostname()
+    ns.scriptKill('/lib/hack.js', localHostname)
+
     // eslint-disable-next-line no-constant-condition
     while (true) {
         const hostname = serverHostnames[i % hostNumber];
@@ -17,7 +20,7 @@ export async function main(ns: NS) {
         const freeRam = maxRam - usedRam
         const RESERVED_RAM = 6
         if (freeRam - RESERVED_RAM < hackScriptRam) break;
-        await ns.run('/lib/hack.js', { threads: 1 }, hostname);
+        await asyncRun(ns, '/lib/hack.js', hostname);
         i++
         await ns.sleep(500)
     }
