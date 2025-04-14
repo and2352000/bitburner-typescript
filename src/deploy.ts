@@ -34,7 +34,7 @@ export async function main(ns: NS) {
                 await ns.exec('deploy.js', server.hostname)
             } else {
                 // await ns.exec('rooter.js', server.hostname)
-                if (!excludeServers.includes(server.hostname)) thug(ns, server.hostname)
+                if (!excludeServers.includes(server.hostname))await thug(ns, server.hostname)
             
             }
         }
@@ -44,7 +44,7 @@ export async function main(ns: NS) {
 
 async function thug(ns: NS, hostname: string) {
     const hackScriptRam = ns.getScriptRam('/lib/hack.js')
-    ns.scriptKill('/lib/hack.js', hostname)
+    await ns.scriptKill('/lib/hack.js', hostname)
 
     const maxRam = ns.getServerMaxRam(hostname)
     const usedRam = ns.getServerUsedRam(hostname)

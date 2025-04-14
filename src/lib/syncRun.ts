@@ -1,7 +1,8 @@
 import { NS } from "@ns";
 
 export async function syncRun(ns: NS, script: string, ...args: any[]) {
-    const pid = ns.run(script, { threads: 1 }, ...args)
+    const a = args ?? []
+    const pid = ns.run(script, { threads: 1 }, ...a)
 
     // eslint-disable-next-line no-constant-condition
     while (true) {

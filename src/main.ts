@@ -6,7 +6,7 @@ export async function main(ns: NS) {
     const hostname = ns.getHostname()
     ns.killall()
     ns.tprintf(`Deploying....`)
-    syncRun(ns, '/deploy.js', hostname)
+    await syncRun(ns, '/deploy.js')
     ns.tprintf(`Scheduler is active on ${hostname}`)
     await asyncRun(ns, '/scheduler.js')
     // ns.tprintf(`Daddy is active on ${hostname}`)
