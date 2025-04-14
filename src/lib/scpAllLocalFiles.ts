@@ -6,7 +6,9 @@ export function scpAllLocalFiles(ns: NS, serverName: string) {
     let files = ns.ls(hostname);
     const regexJs = /.*\.js$/;
     const regexLib = /lib\/.*/;
-    files = files.filter(file => regexJs.test(file) || regexLib.test(file));
+    const regexJson = /.*\.json$/;
+    const regexVersion = /VERSION_.*.txt$/;
+    files = files.filter(file => regexJs.test(file) || regexLib.test(file) || regexJson.test(file) || regexVersion.test(file));
 
     for (const file of files) {
         ns.scp(file, serverName);

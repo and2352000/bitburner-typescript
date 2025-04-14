@@ -15,5 +15,5 @@ export async function main(ns: NS) {
     ns.tprintf('No available hack servers')
     return
   }
-  await asyncRun(ns, '/thug.js', availableHackServers.map(server => server.hostname).join(','));
+  await asyncRun(ns, '/thug.js', 1, availableHackServers.map(server => server.hostname).join(','));
 }

@@ -50,8 +50,8 @@ export async function main(ns: NS) {
         
         const money = await ns.getServerMoneyAvailable("home");
         if (money < minCostResource.price) break;
-        if(minCostResource.price > 1000000000) break;
-        
+        if(minCostResource.price > 40000) break;
+
         switch (minCostResource.type) {
             case ResourceType.NODE:
                 await ns.hacknet.purchaseNode();

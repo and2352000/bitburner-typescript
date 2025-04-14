@@ -20,7 +20,7 @@ export async function main(ns: NS) {
         const freeRam = maxRam - usedRam
         const RESERVED_RAM = 6
         if (freeRam - RESERVED_RAM < hackScriptRam) break;
-        await asyncRun(ns, '/lib/hack.js', hostname);
+        await asyncRun(ns, '/lib/hack.js', 1, hostname);
         i++
         await ns.sleep(500)
     }
