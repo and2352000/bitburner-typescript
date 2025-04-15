@@ -52,8 +52,9 @@ export async function main(ns: NS) {
         if (money < minCostResource.price) break;
         //不同時期升級可以允許升級的價格不同
         if(hackLevel < 100 && minCostResource.price > 40000) break;
-        if(hackLevel < 150 && minCostResource.price > 80000) break;
-        if(hackLevel < 200 && minCostResource.price > 160000) break;
+        if(hackLevel < 150 && minCostResource.price > 65000) break;
+        if(minCostResource.price > 65000) break;
+        
         switch (minCostResource.type) {
             case ResourceType.NODE:
                 await ns.hacknet.purchaseNode();

@@ -1,20 +1,12 @@
 import { NS } from "@ns";
 
-class Node {
-    constructor(
-        public hostname: string,
-        public children: Node[]
-    ) { }
-
-    addChild(node: Node) {
-        this.children.push(node);
-    }
-}
+import { Node } from "../entity/Node";
 
 export async function scanBFS(ns: NS, hostname: string, depth = 5, path: string[] = []) {
     const root = new Node(hostname, []);
     if (--depth === 0) return root;
-    const childHostnames = await ns.scan(hostname);
+    const childHostnames = await ns.scan(hostname)
+
     for (const childHostname of childHostnames) {
         //防止 cycling
         if (path.includes(childHostname)) continue;
