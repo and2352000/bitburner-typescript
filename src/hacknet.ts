@@ -11,7 +11,7 @@ export async function main(ns: NS) {
     // eslint-disable-next-line no-constant-condition
     while (true) {
         const numNodes = await ns.hacknet.numNodes();
-
+        const hackLevel = await ns.getHackingLevel();
         let minCostResource: {
             index: number,
             type: ResourceType,
@@ -50,8 +50,10 @@ export async function main(ns: NS) {
         
         const money = await ns.getServerMoneyAvailable("home");
         if (money < minCostResource.price) break;
-        if(minCostResource.price > 40000) break;
-
+        //不同時期升級可以允許升級的價格不同
+        if(hackLevel < 100 && minCostResource.price > 40000) break;
+        if(hackLevel < 150 && minCostResource.price > 80000) break;
+        if(hackLevel < 200 && minCostResource.price > 160000) break;
         switch (minCostResource.type) {
             case ResourceType.NODE:
                 await ns.hacknet.purchaseNode();
