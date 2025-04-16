@@ -17,8 +17,10 @@ export async function syncExec(ns: NS, script: string, targetHostname: string, t
 }
 
 
-function asyncExec(ns: NS, script: string, targetHostname: string, threads = 1, ...args: Arg[]) {
-    const _args = (args ?? []).map(arg => JSON.stringify(arg))
+export function asyncExec(ns: NS, script: string, targetHostname: string, threads = 1, ...args: Arg[]) {
+    const _args = (args ?? []).map(arg => 
+        typeof arg === 'object' ? JSON.stringify(arg) : arg
+    )
     const pid = ns.exec(script, targetHostname, threads, ..._args)
     return pid
 }

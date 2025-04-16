@@ -32,7 +32,7 @@ class Logger {
         const _opts = { showInTerminal: false, ...options }
         ns.print(`${level}: ${JSON.stringify(message)}`);
         if (_opts.showInTerminal) ns.tprint(`${level}: ${JSON.stringify(message)}`);
-    }
+    } 
 }
 
 export const logger = new Logger(); 
