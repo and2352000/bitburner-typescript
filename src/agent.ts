@@ -8,8 +8,7 @@ import { logger } from "./lib/logger";
 export async function main(ns: NS) {
 
     const nodes = await scanBFS(ns, 'home', 8, [])
-    logger.debug(ns, nodes)
-    ns.killall()
+    logger.info(ns, nodes)
     await syncRun(ns, '/agent/index.js', nodes)
     await syncRun(ns, '/agent/hack.js', nodes)
 }

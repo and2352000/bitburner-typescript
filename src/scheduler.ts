@@ -24,8 +24,8 @@ export async function main(ns: NS) {
         await ns.write('./monitor.json', JSON.stringify(monitorStore), 'w')
 
         if (hostname === 'home' && counter % 133 === 0) await syncRun(ns, 'hacknet.js')
-        // if (counter % 420 === 0) await syncRun(ns, 'rooter.js')
-        // if (counter % 600 === 0) await syncRun(ns, 'daddy.js')
+        if (counter % 600 === 0) await syncRun(ns, 'agent.js')
+       
         await ns.sleep(1000)
         counter++
     }
