@@ -7,8 +7,10 @@ import { logger } from "./lib/logger";
 /** @param {NS} ns */
 export async function main(ns: NS) {
 
-    const nodes = await scanBFS(ns, 'home', 8, [])
+    const nodes = await scanBFS(ns, 'home', 5, [])
     logger.info(ns, nodes)
+    //rm all file will kill all childprocess
+    await syncRun(ns, '/agent/rmAllFile.js', nodes)
     await syncRun(ns, '/agent/index.js', nodes)
     await syncRun(ns, '/agent/hack.js', nodes)
 }

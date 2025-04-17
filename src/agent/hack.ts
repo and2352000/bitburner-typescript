@@ -11,14 +11,15 @@ export async function main(ns: NS) {
     }
     for (const child of node.children) {
         const hackScriptRam = ns.getScriptRam('/lib/hack.js')
-        ns.scriptKill('/lib/hack.js', child.hostname)
+        // ns.scriptKill('/lib/hack.js', child.hostname)
+        ns.killall(child.hostname)
         const maxRam = ns.getServerMaxRam(child.hostname)
         const usedRam = ns.getServerUsedRam(child.hostname)
         const freeRam = maxRam - usedRam
         const threads = Math.floor(freeRam / hackScriptRam)
         if(threads <1) continue;
         await syncExec(ns, '/agent/hack.js', child.hostname, 1, child);
-        logger.debug(ns, `${node.hostname} Hacking ${child.hostname} with ${threads} threads`)
+        logger.info(ns, `${node.hostname} Hacking ${child.hostname} with ${threads} threads`)
         await asyncExec(ns, '/lib/hack.js', child.hostname, threads, child.hostname); 
         // logger.debug(ns, `${node.hostname} Hacked ${child.hostname} with ${threads} threads end`)
     }

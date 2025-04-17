@@ -11,6 +11,7 @@ export async function rooter(ns: NS, hostname: string) {
         logger.info(ns, `${hostname} brutessh result: ${brutesshResult}`);
     }
     if (await hasProgram(ns, Program.FTP_CRACK)) {
+        logger.debug(ns, `${hostname} ftpcrack start`) 
         const ftpCrackResult = await ns.ftpcrack(hostname);
         logger.info(ns, `${hostname} ftpcrack result: ${ftpCrackResult}`);
     }

@@ -7,9 +7,9 @@ export async function hack(ns: NS, serverName: string) {
   while (true) {
     await ns.hack(serverName);
     const r = Math.random() * 100
-    if (r < 10) await ns.grow(serverName);
-    if (r < 40) await ns.weaken(serverName)
-    await ns.sleep(100)
+    if (r < 20) await ns.grow(serverName);
+    if(r < 80)await ns.weaken(serverName)
+    await ns.sleep(50)
   }
 }
 export async function main(ns: NS) {
