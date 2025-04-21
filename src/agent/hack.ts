@@ -21,6 +21,5 @@ export async function main(ns: NS) {
         await syncExec(ns, '/agent/hack.js', child.hostname, 1, child);
         logger.info(ns, `${node.hostname} Hacking ${child.hostname} with ${threads} threads`)
         await asyncExec(ns, '/lib/hack.js', child.hostname, threads, child.hostname); 
-        // logger.debug(ns, `${node.hostname} Hacked ${child.hostname} with ${threads} threads end`)
     }
 }

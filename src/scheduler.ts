@@ -1,5 +1,6 @@
 import { NS } from "@ns";
 import { asyncRun } from "./lib/asyncRun";
+import { asyncExec } from "./lib/exec";
 
 interface MonitorStore {
     basic: {
@@ -26,8 +27,15 @@ export async function main(ns: NS) {
         await ns.write('./monitor.json', JSON.stringify(monitorStore), 'w')
 
         cornJob(ns, counter, () => asyncRun(ns, 'hacknet.js'), 133)
+        cornJob(ns, counter, () => asyncRun(ns, 'shareRam.js', 100), 10)
         cornJob(ns, counter, () => asyncRun(ns, 'agent.js'), 600)
-        cornJob(ns, counter, () => asyncRun(ns, 'shareRam.js', 90), 10)
+        // const purchasedServers = ns.getPurchasedServers()
+        // for (const server of purchasedServers) {
+        //     const ram = ns.getServerMaxRam(server)
+        //     const shareRamScriptRam = ns.getScriptRam('shareRam.js')
+        //     const thread = Math.floor(ram / shareRamScriptRam)
+        //     cornJob(ns, counter, () => asyncExec(ns, 'shareRam.js', server, thread), 10)
+        // }
         await ns.sleep(CYCLE_TIME)
         counter++
     }

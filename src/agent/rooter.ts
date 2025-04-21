@@ -11,7 +11,7 @@ export async function rooter(ns: NS, hostname: string) {
         logger.info(ns, `${hostname} brutessh result: ${brutesshResult}`);
     }
     if (await hasProgram(ns, Program.FTP_CRACK)) {
-        logger.debug(ns, `${hostname} ftpcrack start`) 
+        logger.info(ns, `${hostname} ftpcrack start`) 
         const ftpCrackResult = await ns.ftpcrack(hostname);
         logger.info(ns, `${hostname} ftpcrack result: ${ftpCrackResult}`);
     }
@@ -39,7 +39,7 @@ export async function rooter(ns: NS, hostname: string) {
 export async function main(ns: NS) {
     const node = JSON.parse(ns.args[0] as string) as Node
 
-    logger.debug(ns, `${ns.getHostname()} rooter start`)
+    logger.info(ns, `${ns.getHostname()} rooter start`)
     for (const child of node.children) {
         await rooter(ns, child.hostname)
     }

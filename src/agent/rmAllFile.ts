@@ -5,7 +5,6 @@ import { syncExec } from '../lib/exec'
 import { rmAll } from "../lib/rm";
 export async function main(ns: NS) {
     const node = JSON.parse(ns.args[0] as string) as Node
-    logger.debug(ns, node)
     if (node.children.length === 0) return
     for (const child of node.children) {
         logger.info(ns, `killall ${child.hostname}`)
