@@ -1,4 +1,5 @@
-# Task Note
+# Todo List
+
 ## Task List
 - Hacking skill
   - hacking speed
@@ -19,6 +20,7 @@
   - money increase group by diff work
 - Search unvisitable server
   - vitalife (with A-Green-Tomorrow.lit files) graft
+- Stock Trading
 ```
 Daedalus Faction
 * 30+ Augmentations
@@ -28,8 +30,10 @@ Daedalus Faction
 
 # Goal
   -  Increase hacking speed, Increase Money, Automation
-     -  [ ] Search unvisitable server
+     -  [X] Search unvisitable server
      - [ ] Automatically purchase server
+     - [ ] Stock trading with 4S data
+     - [ ] 
      - [ ] Organize computing resources and allocate hacking resources by home server
      - [ ] Automatically doing crime
      - [ ] Frontend hacking script

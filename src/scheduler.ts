@@ -27,7 +27,7 @@ export async function main(ns: NS) {
         await ns.write('./monitor.json', JSON.stringify(monitorStore), 'w')
 
         cornJob(ns, counter, () => asyncRun(ns, 'hacknet.js'), 133)
-        cornJob(ns, counter, () => asyncRun(ns, 'shareRam.js', 100), 10)
+        cornJob(ns, counter, () => asyncRun(ns, 'shareRam.js', 200), 10)
         cornJob(ns, counter, () => asyncRun(ns, 'agent.js'), 600)
         // const purchasedServers = ns.getPurchasedServers()
         // for (const server of purchasedServers) {

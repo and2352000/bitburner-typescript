@@ -13,5 +13,6 @@ export async function main(ns: NS) {
     const serverName = ns.args[1] as string;
     const cost = ns.getPurchasedServerCost(ram)
     logger.debug(ns, `cost: ${cost}`)
-    ns.purchaseServer(serverName, ram)
+    const result = ns.purchaseServer(serverName, ram)
+    logger.debug(ns, `result: ${result ? "success" : "failed"}`)
 }
